@@ -4,6 +4,7 @@ $(function () {
     // for better performance - to avoid searching in DOM
     var content = $('#content');
     var input = $('#input');
+    var button1 = $('#button_1');
     var status = $('#status');
 
     // my color assigned by the server
@@ -73,7 +74,7 @@ $(function () {
     };
 
     /**
-     * Send mesage when user presses Enter key
+     * Send mesage when user presses Enter key or send button
      */
     input.keydown(function(e) {
         if (e.keyCode === 13) {
@@ -94,7 +95,18 @@ $(function () {
             }
         }
     });
-
+    button1.click(function() {
+        const msg = input.val();
+        if (!msg) {
+            return;
+        }
+        // send the message as an ordinary text
+        connection.send(msg);
+        input.val('');
+        if (myName === false) {
+            myName = msg;
+        }
+    });
     /**
      * This method is optional. If the server wasn't able to respond to the
      * in 3 seconds then show some error message to notify the user that
