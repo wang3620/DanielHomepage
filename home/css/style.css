@@ -229,7 +229,6 @@ figure {
     #colorlib-main {
       width: 100%;
       padding: 0 1em; } }
-
 #colorlib-hero {
   min-height: 500px;
   background: #fff url(../images/loader.gif) no-repeat center center;
@@ -255,16 +254,15 @@ figure {
       z-index: 1000;
       left: 20px;
       float: left;
-      width: auto; }
+      }
       @media screen and (max-width: 768px) {
         #colorlib-hero .flexslider .flex-control-nav {
           right: 20px;
           top: 100px; } }
       #colorlib-hero .flexslider .flex-control-nav li {
-        display: block;
         margin-bottom: 10px; }
         #colorlib-hero .flexslider .flex-control-nav li a {
-          background: rgba(0, 0, 0, 0.5);
+          background: white;
           -webkit-box-shadow: none;
           box-shadow: none;
           width: 12px;
@@ -272,8 +270,8 @@ figure {
           cursor: pointer; }
           #colorlib-hero .flexslider .flex-control-nav li a.flex-active {
             cursor: pointer;
-            background: transparent;
-            border: 2px solid #2c98f0; }
+            background: red;
+            }
     #colorlib-hero .flexslider .flex-direction-nav {
       display: none; }
     #colorlib-hero .flexslider .slider-text {
