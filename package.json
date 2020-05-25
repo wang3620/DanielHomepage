@@ -3,6 +3,6 @@
     "express": "^4.16.4"
   },
   "scripts": {
-    "start": "node app.js"
+    "start": "node ./home/OnlineChatroom/chat-server.js & node app.js"
   }
 }
