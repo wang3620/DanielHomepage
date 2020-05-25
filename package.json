@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "express": "^4.16.4",
-    "websocket": "^1.0.28",
+    "websocket": "^1.0.28"
   },
   "scripts": {
     "start": "node ./home/OnlineChatroom/chat-server.js & node app.js"
