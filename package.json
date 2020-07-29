@@ -1,9 +1,22 @@
 {
   "dependencies": {
     "express": "^4.16.4",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
     "websocket": "^1.0.28"
   },
   "scripts": {
-    "start": "node ./home/OnlineChatroom/chat-server.js & node app.js"
+    "start-dev": "webpack-dev-server --config ./webpack.config.js --mode development",
+    "start": "node ./home/OnlineChatroom/chat-server.js & node app.js",
+    "build": "webpack"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.5",
+    "@babel/preset-env": "^7.10.4",
+    "@babel/preset-react": "^7.10.4",
+    "babel-loader": "^8.1.0",
+    "webpack": "^4.44.0",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
   }
 }
