@@ -1,17 +1,22 @@
 module.exports = {
     // 1
     entry: './src/index.js',
+    mode: 'development',
     module: {
         rules: [
             {
-                test: /\.(js)$/,
+                test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 use: ['babel-loader']
+            },
+            {
+                test: /\.css$/, // Match .css files
+                use: ['style-loader', 'css-loader'], // Use style-loader and css-loader to handle CSS files
             }
         ]
     },
     resolve: {
-        extensions: ['*', '.js']
+        extensions: ['.*', '.js', '.jsx']
     },
     // 2
     output: {
@@ -21,6 +26,7 @@ module.exports = {
     },
     // 3
     devServer: {
-        contentBase: './dist'
+        contentBase: './dist',
+        port: 9000
     }
 };
