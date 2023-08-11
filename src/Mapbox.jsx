@@ -4,12 +4,16 @@ import maplibregl from 'maplibre-gl';
 import DeckGL from '@deck.gl/react';
 import { HeatmapLayer } from '@deck.gl/aggregation-layers';
 
-const DATA_URL =
-  'http://officialdaniel.com/ip_location_history'; // eslint-disable-line
+// const DATA_URL =
+//   'http://officialdaniel.com/ip_location_history'; // todo -- not sure why this doesn't work
+
+const DATA_URL = 'https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/screen-grid/uber-pickup-locations.json';
 
 const INITIAL_VIEW_STATE = {
-  longitude: -122.19,
-  latitude: 47.62,
+  longitude: -73.75,
+  latitude: 40.73, // todo -- change to the following location once we figure out why it doesn't work
+  // longitude: -122.19,
+  // latitude: 47.62,
   zoom: 9,
   maxZoom: 16,
   pitch: 0,
@@ -21,7 +25,7 @@ const MAP_STYLE = 'https://basemaps.cartocdn.com/gl/dark-matter-nolabels-gl-styl
 export default function Mapbox({
   data = DATA_URL,
   intensity = 1,
-  threshold = 0.03,
+  threshold = 0,
   radiusPixels = 30,
   mapStyle = MAP_STYLE
 }) {
