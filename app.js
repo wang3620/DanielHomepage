@@ -30,8 +30,8 @@ app.use(async (req, res, next) => {
         console.log(realIpInfo);
         if (realIpInfo.loc) {
             const arr = realIpInfo.loc.split(",");
-            const log = arr[0];
-            const lat = arr[1];
+            const log = arr[1];
+            const lat = arr[0];
             location.longitude = log;
             location.latitude = lat;
         }
