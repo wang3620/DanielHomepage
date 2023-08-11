@@ -26,7 +26,7 @@ export default function Mapbox({
   data = DATA_URL,
   intensity = 1,
   threshold = 0,
-  radiusPixels = 30,
+  radiusPixels = 1,
   mapStyle = MAP_STYLE
 }) {
   const layers = [
