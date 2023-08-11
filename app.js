@@ -26,6 +26,8 @@ app.use(async (req, res, next) => {
             longitude: null,
             latitude: null,
         }
+        console.log("realIpInfo is the following:");
+        console.log(realIpInfo);
         if (realIpInfo.loc) {
             const arr = realIpInfo.loc.split(",");
             const log = arr[0];
