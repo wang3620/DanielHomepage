@@ -5,11 +5,11 @@ import DeckGL from '@deck.gl/react';
 import { HeatmapLayer } from '@deck.gl/aggregation-layers';
 
 const DATA_URL =
-  'https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/screen-grid/uber-pickup-locations.json'; // eslint-disable-line
+  'http://officialdaniel.com/ip_location_history'; // eslint-disable-line
 
 const INITIAL_VIEW_STATE = {
-  longitude: -73.75,
-  latitude: 40.73,
+  longitude: -122.19,
+  latitude: 47.62,
   zoom: 9,
   maxZoom: 16,
   pitch: 0,

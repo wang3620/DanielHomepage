@@ -5,7 +5,7 @@ const pool = mariadb.createPool({
     user:'daniel',
     password: '7777',
     database: "danielHomepage",
-    connectionLimit: 5
+    connectionLimit: 100
 });
 const app = express();
 const port = 8080;
@@ -43,6 +43,22 @@ app.use(async (req, res, next) => {
         console.log(err);
     } finally {
         next();
+    }
+});
+
+app.get('/ip_location_history', async (req, res) => {
+    let conn;
+    try {
+        conn = await pool.getConnection();
+        const queryResult = await conn.query("SELECT * FROM ip_location_history;");
+        res.send(queryResult.map(obj => {
+            const locationStr = obj.location;
+            const location = JSON.parse(locationStr);
+            return [parseInt(location.latitude, 10), parseInt(location.longitude, 10)];
+        }))
+    } catch (err) {
+        console.log("error during get ip_location_history");
+        console.log(res);
     }
 });
 
