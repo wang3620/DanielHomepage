@@ -1,7 +1,9 @@
 const express = require('express');
+const db = require('./db')
 const app = express();
 const port = 8080;
-const ipInfo = require("ip-info-finder");
+
+const ipInfo = require("ipinfo")
 
 app.use(express.static('home'));
 
@@ -9,13 +11,16 @@ app.use(express.static('home'));
 app.use((req, res, next) => {
     console.log(`Request from IP: ${req.ip}`);
     const realIP = req.ip.split(':')[req.ip.split(':').length - 1];
-    ipInfo.getIPInfo(
-        realIP
-    ).then(data => {
-        console.log("find ip info!!!!")
-        console.log(data);
+    db.pool.query("select * from ip_location_history;").then(res => {
+        console.log("get db query response");
+        console.log(res);
+    }).catch(err => {
+        console.log("get db query err");
+        console.log(err);
     })
-        .catch(err => console.log(err));
+    ipInfo(realIP, (err, cLoc) => {
+        console.log(err || cLoc)
+    })
     next();
 });
 
