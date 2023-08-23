@@ -14,7 +14,7 @@
     "websocket": "^1.0.28"
   },
   "scripts": {
-    "start": "node ./home/OnlineChatroom/chat-server.js & node app.js",
+    "start": "node ./home/OnlineChatroom/chat-server.js & node app.js & node app_redirect.js",
     "build": "webpack"
   },
   "devDependencies": {
