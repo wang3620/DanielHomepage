@@ -64,15 +64,6 @@ app.use(async (req, res, next) => {
   }
 });
 
-// force http to https
-// app.use((req, res, next) => {
-//     if (req.get('https')) {
-//         return next();
-//     }
-//
-//     res.redirect('https://' + req.get('host') + req.originalUrl);
-// });
-
 app.get('/ip_location_history', async (req, res) => {
   let conn;
   try {
