@@ -16,6 +16,10 @@ const privateKey = fs.readFileSync('/home/pi/.ssl/officialdaniel.com_key.txt');
 const certificate = fs.readFileSync('/home/pi/.ssl/officialdaniel.com.crt');
 const bundle = fs.readFileSync('/home/pi/.ssl/officialdaniel.com.ca-bundle');
 
+// const privateKey = fs.readFileSync('/Users/daniel/.ssl/officialdaniel.com_key.txt');
+// const certificate = fs.readFileSync('/Users/daniel/.ssl/officialdaniel.com.crt');
+// const bundle = fs.readFileSync('/Users/daniel/.ssl/officialdaniel.com.ca-bundle');
+
 https
   .createServer(
     {

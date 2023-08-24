@@ -10,7 +10,7 @@ const DATA_URL = 'https://officialdaniel.com/ip_location_history';
 
 const INITIAL_VIEW_STATE = {
   // longitude: -73.75,
-  // latitude: 40.73, // todo -- change to the following location once we figure out why it doesn't work
+  // latitude: 40.73,
   longitude: -122.19,
   latitude: 47.62,
   zoom: 9,
