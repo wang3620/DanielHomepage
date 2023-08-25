@@ -12,13 +12,19 @@ const pool = mariadb.createPool({
 const app = express();
 const port = 8080;
 
-const privateKey = fs.readFileSync('/home/pi/.ssl/officialdaniel.com_key.txt');
-const certificate = fs.readFileSync('/home/pi/.ssl/officialdaniel.com.crt');
-const bundle = fs.readFileSync('/home/pi/.ssl/officialdaniel.com.ca-bundle');
+let privateKey;
+let certificate;
+let bundle;
 
-// const privateKey = fs.readFileSync('/Users/daniel/.ssl/officialdaniel.com_key.txt');
-// const certificate = fs.readFileSync('/Users/daniel/.ssl/officialdaniel.com.crt');
-// const bundle = fs.readFileSync('/Users/daniel/.ssl/officialdaniel.com.ca-bundle');
+if (process.env.ENV === 'local') {
+  privateKey = fs.readFileSync('/Users/daniel/.ssl/officialdaniel.com_key.txt');
+  certificate = fs.readFileSync('/Users/daniel/.ssl/officialdaniel.com.crt');
+  bundle = fs.readFileSync('/Users/daniel/.ssl/officialdaniel.com.ca-bundle');
+} else {
+  privateKey = fs.readFileSync('/home/pi/.ssl/officialdaniel.com_key.txt');
+  certificate = fs.readFileSync('/home/pi/.ssl/officialdaniel.com.crt');
+  bundle = fs.readFileSync('/home/pi/.ssl/officialdaniel.com.ca-bundle');
+}
 
 https
   .createServer(
