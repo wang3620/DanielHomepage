@@ -87,6 +87,7 @@ app.get('/ip_location_history', async (req, res) => {
         result.push([parseFloat(location.longitude, 10), parseFloat(location.latitude, 10), 1]);
       }
     });
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.send(result);
   } catch (err) {
     console.log('error during get ip_location_history');
