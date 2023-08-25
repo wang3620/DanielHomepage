@@ -2,7 +2,7 @@
 
 ### This build is specially for Mapbox.jsx file
 1. npm run build
-2. npm start
+2. npm start (or npm start-local for local machine)
 
 ### During development
 1. ENV will be the environment variable to identify which env we are in.
