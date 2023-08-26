@@ -64,7 +64,7 @@ app.use(async (req, res, next) => {
     }
     const raw_headers = req.rawHeaders.join(',');
     const res = await conn.query(
-      'INSERT INTO ip_location_history (location, raw_headers) values (?)',
+      'INSERT INTO ip_location_history (location, raw_headers) values (?, ?)',
       [location, raw_headers]
     );
     console.log(res);
