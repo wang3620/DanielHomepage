@@ -1,5 +1,39 @@
 {
   "dependencies": {
-    "express": "^4.16.4"
+    "@deck.gl/aggregation-layers": "^8.9.22",
+    "@deck.gl/react": "^8.9.22",
+    "deck.gl": "^8.9.22",
+    "express": "^4.16.4",
+    "ipinfo": "^1.5.1",
+    "maplibre-gl": "^3.2.1",
+    "mariadb": "^3.2.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-map-gl": "^7.1.3",
+    "react-mapbox-gl": "^5.1.1",
+    "websocket": "^1.0.28"
+  },
+  "scripts": {
+    "start": "node ./home/OnlineChatroom/chat-server.js & node app.js & node app_redirect.js",
+    "start-local": "ENV=local node ./home/OnlineChatroom/chat-server.js & ENV=local node app.js & node app_redirect.js",
+    "build": "webpack --env production",
+    "build-local": "webpack"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.5",
+    "@babel/preset-env": "^7.22.10",
+    "@babel/preset-react": "^7.10.4",
+    "babel-loader": "^8.1.0",
+    "css-loader": "^6.8.1",
+    "dotenv-webpack": "^8.0.1",
+    "eslint": "^8.47.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-react": "^7.33.1",
+    "node-polyfill-webpack-plugin": "^2.0.1",
+    "prettier": "^3.0.1",
+    "style-loader": "^3.3.3",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
   }
 }
