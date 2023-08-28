@@ -4,13 +4,9 @@ import maplibregl from 'maplibre-gl';
 import DeckGL from '@deck.gl/react';
 import { HeatmapLayer } from '@deck.gl/aggregation-layers';
 
-const DATA_URL = 'https://officialdaniel.com/ip_location_history';
-
-// const DATA_URL = 'https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/screen-grid/uber-pickup-locations.json';
+const DATA_URL = process.env.IP_LOCATION_DATA_URL;
 
 const INITIAL_VIEW_STATE = {
-  // longitude: -73.75,
-  // latitude: 40.73,
   longitude: -122.19,
   latitude: 47.62,
   zoom: 9,

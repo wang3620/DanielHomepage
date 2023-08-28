@@ -16,7 +16,8 @@
   "scripts": {
     "start": "node ./home/OnlineChatroom/chat-server.js & node app.js & node app_redirect.js",
     "start-local": "ENV=local node ./home/OnlineChatroom/chat-server.js & ENV=local node app.js & node app_redirect.js",
-    "build": "webpack"
+    "build": "webpack --env production",
+    "build-local": "webpack"
   },
   "devDependencies": {
     "@babel/core": "^7.10.5",
@@ -24,6 +25,7 @@
     "@babel/preset-react": "^7.10.4",
     "babel-loader": "^8.1.0",
     "css-loader": "^6.8.1",
+    "dotenv-webpack": "^8.0.1",
     "eslint": "^8.47.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
