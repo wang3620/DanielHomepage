@@ -85,7 +85,7 @@ app.use(async (req, res, next) => {
 app.get('/ip_location_history', async (req, res) => {
   let conn;
   let result = [];
-  let resultLimit = 30;
+  let resultLimit = 10000;
   res.setHeader('Access-Control-Allow-Origin', '*');
   try {
     const query = req.query.type;
