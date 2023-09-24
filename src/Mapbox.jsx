@@ -3,7 +3,7 @@ import { Map } from 'react-map-gl';
 import maplibregl from 'maplibre-gl';
 import DeckGL from '@deck.gl/react';
 import { HeatmapLayer } from '@deck.gl/aggregation-layers';
-import { Select, Alert } from 'antd';
+import { Select, Alert, Row } from 'antd';
 
 const INITIAL_VIEW_STATE = {
   longitude: -122.19,
@@ -37,18 +37,20 @@ export default function Mapbox({
   ];
   return (
     <div>
-      <Select
-        defaultValue={'mysql'}
-        onChange={(value) => setSelectValue(value)}
-        style={{ width: 200 }}>
-        <Select.Option value={'mysql'}>mysql</Select.Option>
-        <Select.Option value={'redis'}>redis</Select.Option>
-      </Select>
-      <Alert
-        message="Currently it's only fetching the latest 30 record from our backend"
-        type="info"
-        showIcon
-      />
+      <Row>
+        <Select
+          defaultValue={'mysql'}
+          onChange={(value) => setSelectValue(value)}
+          style={{ width: 200 }}>
+          <Select.Option value={'mysql'}>mysql</Select.Option>
+          <Select.Option value={'redis'}>redis</Select.Option>
+        </Select>
+        <Alert
+          message="Currently it's only fetching the latest 30 record from our backend"
+          type="info"
+          showIcon
+        />
+      </Row>
       <DeckGL
         initialViewState={INITIAL_VIEW_STATE}
         controller={true}
