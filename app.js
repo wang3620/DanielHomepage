@@ -2,6 +2,7 @@ const express = require('express');
 const mariadb = require('mariadb');
 const https = require('https');
 const fs = require('fs');
+const { createClient } = require('redis');
 const pool = mariadb.createPool({
   host: 'localhost',
   user: 'daniel',
@@ -63,6 +64,11 @@ app.use(async (req, res, next) => {
       location.latitude = lat;
     }
     const raw_headers = req.rawHeaders.join(',');
+    const redisClient = await createClient()
+      .on('error', (err) => console.log('Redis Client Error', err))
+      .connect();
+    await redisClient.lPush('locations', JSON.stringify(location));
+    await redisClient.lTrim('locations', 0, 999);
     const res = await conn.query(
       'INSERT INTO ip_location_history (location, raw_headers) values (?, ?)',
       [location, raw_headers]
@@ -78,21 +84,39 @@ app.use(async (req, res, next) => {
 
 app.get('/ip_location_history', async (req, res) => {
   let conn;
+  let result = [];
+  let resultLimit = 30;
+  res.setHeader('Access-Control-Allow-Origin', '*');
   try {
-    conn = await pool.getConnection();
-    const queryResult = await conn.query('SELECT * FROM ip_location_history;');
-    const result = [];
-    queryResult.forEach((obj) => {
-      const locationStr = obj.location;
-      const location = JSON.parse(locationStr);
-      if (location.longitude && location.latitude) {
-        result.push([parseFloat(location.longitude, 10), parseFloat(location.latitude, 10), 1]);
+    const query = req.query.type;
+    if (query === 'mysql') {
+      conn = await pool.getConnection();
+      const queryResult = await conn.query(
+        `SELECT location FROM ip_location_history order by created_at desc limit ${resultLimit};`
+      );
+      for (let i = 0; i < queryResult.length; i += 1) {
+        const obj = queryResult[i];
+        const locationStr = obj.location;
+        const location = JSON.parse(locationStr);
+        if (location.longitude && location.latitude) {
+          result.push([parseFloat(location.longitude, 10), parseFloat(location.latitude, 10), 1]);
+        }
       }
-    });
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    } else if (query === 'redis') {
+      const redisClient = await createClient()
+        .on('error', (err) => console.log('Redis Client Error', err))
+        .connect();
+      const resRedis = await redisClient.lRange('locations', 0, resultLimit);
+      const convertedResult = resRedis.map((element) => JSON.parse(element));
+      result = [...convertedResult];
+    } else {
+      res.status(400).send('your type in query parameter is invalid');
+      return;
+    }
     res.send(result);
   } catch (err) {
     console.log('error during get ip_location_history');
     console.log(res);
+    res.status(500).send('Internal Server Error');
   }
 });

@@ -4,7 +4,7 @@ import maplibregl from 'maplibre-gl';
 import DeckGL from '@deck.gl/react';
 import { HeatmapLayer } from '@deck.gl/aggregation-layers';
 
-const DATA_URL = process.env.IP_LOCATION_DATA_URL;
+const DATA_URL = `${process.env.IP_LOCATION_DATA_URL}?type=mysql`; // todo -- change it dynamically in the future, hard coded to redis now
 
 const INITIAL_VIEW_STATE = {
   longitude: -122.19,
