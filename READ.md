@@ -1,10 +1,11 @@
 # How to Run This Program
 
 1. `npm install`
-2. run sql statement to initialize database. See files in `./sql_statements`
-3. `npm run build` or `npm run build-local`
-4. `npm start` or `npm run start-local`
-5. go to `https://localhost:8080` to view your page
+2. start your redis and mariadb
+3. run sql statement to initialize database. See files in `./sql_statements`
+4. `npm run build` or `npm run build-local`
+5. `npm start` or `npm run start-local`
+6. go to `https://localhost:8080` to view your page
 
 
 # Misc
