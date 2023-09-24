@@ -2,6 +2,7 @@
   "dependencies": {
     "@deck.gl/aggregation-layers": "^8.9.22",
     "@deck.gl/react": "^8.9.22",
+    "antd": "^5.9.2",
     "deck.gl": "^8.9.22",
     "express": "^4.16.4",
     "ipinfo": "^1.5.1",
