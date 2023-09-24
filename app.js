@@ -63,17 +63,19 @@ app.use(async (req, res, next) => {
       location.longitude = log;
       location.latitude = lat;
     }
-    const raw_headers = req.rawHeaders.join(',');
-    const redisClient = await createClient()
-      .on('error', (err) => console.log('Redis Client Error', err))
-      .connect();
-    await redisClient.lPush('locations', JSON.stringify(location));
-    await redisClient.lTrim('locations', 0, 999);
-    const res = await conn.query(
-      'INSERT INTO ip_location_history (location, raw_headers) values (?, ?)',
-      [location, raw_headers]
-    );
-    console.log(res);
+    if (location.longitude && location.latitude) {
+      const raw_headers = req.rawHeaders.join(',');
+      const redisClient = await createClient()
+        .on('error', (err) => console.log('Redis Client Error', err))
+        .connect();
+      await redisClient.lPush('locations', JSON.stringify(location));
+      await redisClient.lTrim('locations', 0, 999);
+      const res = await conn.query(
+        'INSERT INTO ip_location_history (location, raw_headers) values (?, ?)',
+        [location, raw_headers]
+      );
+      console.log(res);
+    }
   } catch (err) {
     console.log('get err');
     console.log(err);
@@ -85,7 +87,7 @@ app.use(async (req, res, next) => {
 app.get('/ip_location_history', async (req, res) => {
   let conn;
   let result = [];
-  let resultLimit = 10000;
+  let resultLimit = 30;
   res.setHeader('Access-Control-Allow-Origin', '*');
   try {
     const query = req.query.type;
