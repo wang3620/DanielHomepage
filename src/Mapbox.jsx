@@ -23,6 +23,7 @@ export default function Mapbox() {
   const [backendQueryTimeMs, setBackendQueryTimeMs] = useState(null);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
+    setLoading(true);
     axios
       .get(`${process.env.IP_LOCATION_DATA_URL}?type=${selectValue}`)
       .then((res) => {
