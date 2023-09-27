@@ -86,38 +86,47 @@ app.use(async (req, res, next) => {
 
 app.get('/ip_location_history', async (req, res) => {
   let conn;
-  let result = [];
-  let resultLimit = 10000;
+  let result = {
+    backendQueryTimeMs: null,
+    data: []
+  };
+  let resultLimit = 200;
   res.setHeader('Access-Control-Allow-Origin', '*');
   try {
     const query = req.query.type;
     if (query === 'mysql') {
       conn = await pool.getConnection();
-      console.time('mysqlQueryTimer');
+      let start = process.hrtime();
       const queryResult = await conn.query(
         `SELECT location FROM ip_location_history order by created_at desc limit ${resultLimit};`
       );
-      console.timeEnd('mysqlQueryTimer');
+      let stop = process.hrtime(start);
+      result.backendQueryTimeMs = (stop[0] * 1e9 + stop[1]) / 1e6;
       for (let i = 0; i < queryResult.length; i += 1) {
         const obj = queryResult[i];
         const locationStr = obj.location;
         const location = JSON.parse(locationStr);
         if (location.longitude && location.latitude) {
-          result.push([parseFloat(location.longitude, 10), parseFloat(location.latitude, 10), 1]);
+          result.data.push([
+            parseFloat(location.longitude, 10),
+            parseFloat(location.latitude, 10),
+            1
+          ]);
         }
       }
     } else if (query === 'redis') {
       const redisClient = await createClient()
         .on('error', (err) => console.log('Redis Client Error', err))
         .connect();
-      console.time('redisQueryTimer');
+      let start = process.hrtime();
       const resRedis = await redisClient.lRange('locations', 0, resultLimit);
-      console.timeEnd('redisQueryTimer');
+      let stop = process.hrtime(start);
+      result.backendQueryTimeMs = (stop[0] * 1e9 + stop[1]) / 1e6;
       const convertedResult = resRedis.map((element) => {
         const obj = JSON.parse(element);
         return [parseFloat(obj.longitude, 10), parseFloat(obj.latitude, 10), 1];
       });
-      result = [...convertedResult];
+      result.data = [...convertedResult];
     } else {
       res.status(400).send('your type in query parameter is invalid');
       return;
