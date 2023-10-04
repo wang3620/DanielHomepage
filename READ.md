@@ -26,6 +26,8 @@ connectionLimit: 100
 
 ### About officialdaniel.com ssl Certificates
 
+The ssl certificate is bought on [ssls](https://www.ssls.com/)
+
 Please refer to [Daniel's OneDrive](https://onedrive.live.com/?id=3418FCE41D5324F5%214827&cid=3418FCE41D5324F5). Email chenguang89.wang@outlook.com for details.
 
 ### About frontend.js
