@@ -20,7 +20,6 @@ const MAP_STYLE = 'https://basemaps.cartocdn.com/gl/dark-matter-nolabels-gl-styl
 export default function Mapbox() {
   const [selectValue, setSelectValue] = useState('mysql');
   const [data, setData] = useState([]);
-  const [backendQueryTimeMs, setBackendQueryTimeMs] = useState(null);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     setLoading(true);
@@ -28,7 +27,7 @@ export default function Mapbox() {
       .get(`${process.env.IP_LOCATION_DATA_URL}?type=${selectValue}`)
       .then((res) => {
         setData(res.data.data);
-        setBackendQueryTimeMs(res.data.backendQueryTimeMs);
+        message.info(`It takes ${res.data.backendQueryTimeMs}ms to query in backend`);
       })
       .catch((error) => {
         if (error.response) {
@@ -74,14 +73,6 @@ export default function Mapbox() {
               <Select.Option value={'mysql'}>mysql</Select.Option>
               <Select.Option value={'redis'}>redis</Select.Option>
             </Select>
-          </Col>
-          <Col>
-            <Alert
-              message={`It takes ${
-                backendQueryTimeMs ? backendQueryTimeMs : ''
-              } milliseconds to query in backend`}
-              type="success"
-            />
           </Col>
           <Col>
             <Alert
