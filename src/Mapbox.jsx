@@ -3,7 +3,7 @@ import { Map } from 'react-map-gl';
 import maplibregl from 'maplibre-gl';
 import DeckGL from '@deck.gl/react';
 import { HeatmapLayer } from '@deck.gl/aggregation-layers';
-import { Select, Alert, Row, Col, message, Spin } from 'antd';
+import { Select, Alert, Row, Col, message, Spin, Button } from 'antd';
 import axios from 'axios';
 
 const INITIAL_VIEW_STATE = {
@@ -90,6 +90,15 @@ export default function Mapbox() {
               type="info"
               showIcon
             />
+          </Col>
+          <Col>
+            <Button
+              type={'primary'}
+              onClick={() => {
+                window.location.href = `https://${window.location.hostname}`;
+              }}>
+              Go Back to Home Page
+            </Button>
           </Col>
         </Row>
       </Spin>
