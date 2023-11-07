@@ -11,7 +11,7 @@ const pool = mariadb.createPool({
   connectionLimit: 100
 });
 const app = express();
-const port = 8080;
+const port = 443;
 
 let privateKey;
 let certificate;

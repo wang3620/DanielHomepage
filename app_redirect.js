@@ -4,14 +4,13 @@ const express = require('express');
 // Create an instance of the Express application
 const app = express();
 
-
 // Define the port to listen on
-const port = 8081;
+const port = 80;
 
 app.use((req, res, next) => {
-  console.log("hitting normal http");
+  console.log('hitting normal http');
   if (req.headers.origin !== 'https://officialdaniel.com') {
-    console.log("not https!!! redirecting...")
+    console.log('not https!!! redirecting...');
     res.redirect('https://officialdaniel.com');
   } else {
     next();
