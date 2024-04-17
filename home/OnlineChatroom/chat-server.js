@@ -62,9 +62,9 @@ if (process.env.ENV === 'local') {
   certificate = fs.readFileSync('/Users/daniel/.ssl/officialdaniel.com.crt');
   bundle = fs.readFileSync('/Users/daniel/.ssl/officialdaniel.com.ca-bundle');
 } else {
-  privateKey = fs.readFileSync('/home/pi/.ssl/officialdaniel.com_key.txt');
-  certificate = fs.readFileSync('/home/pi/.ssl/officialdaniel.com.crt');
-  bundle = fs.readFileSync('/home/pi/.ssl/officialdaniel.com.ca-bundle');
+  privateKey = fs.readFileSync('/home/pi/ssl/officialdaniel.com_key.txt');
+  certificate = fs.readFileSync('/home/pi/ssl/officialdaniel.com.crt');
+  bundle = fs.readFileSync('/home/pi/ssl/officialdaniel.com.ca-bundle');
 }
 
 /**
