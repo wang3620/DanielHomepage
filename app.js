@@ -1,8 +1,8 @@
 const express = require('express');
 const mariadb = require('mariadb');
-const https = require('https');
 const fs = require('fs');
 const { createClient } = require('redis');
+
 const pool = mariadb.createPool({
   host: 'localhost',
   user: 'daniel',
@@ -10,37 +10,52 @@ const pool = mariadb.createPool({
   database: 'danielHomepage',
   connectionLimit: 100
 });
+
 const app = express();
 const port = 8080;
+const useSSL = process.env.USE_SSL === 'true'; // Toggle SSL based on an environment variable
 
-let privateKey;
-let certificate;
-let bundle;
+if (useSSL) {
+  let privateKey, certificate, bundle;
 
-if (process.env.ENV === 'local') {
-  privateKey = fs.readFileSync('/Users/daniel/.ssl/officialdaniel.com_key.txt');
-  certificate = fs.readFileSync('/Users/daniel/.ssl/officialdaniel.com.crt');
-  bundle = fs.readFileSync('/Users/daniel/.ssl/officialdaniel.com.ca-bundle');
+  if (process.env.ENV === 'local') {
+    privateKey = fs.readFileSync('/Users/daniel/.ssl/officialdaniel.com_key.txt');
+    certificate = fs.readFileSync('/Users/daniel/.ssl/officialdaniel.com.crt');
+    bundle = fs.readFileSync('/Users/daniel/.ssl/officialdaniel.com.ca-bundle');
+  } else {
+    privateKey = fs.readFileSync('/home/pi/ssl/officialdaniel.com_key.txt');
+    certificate = fs.readFileSync('/home/pi/ssl/officialdaniel.com.crt');
+    bundle = fs.readFileSync('/home/pi/ssl/officialdaniel.com.ca-bundle');
+  }
+
+  require('https')
+    .createServer(
+      {
+        key: privateKey,
+        cert: certificate,
+        ca: bundle
+      },
+      app
+    )
+    .listen(port, () => {
+      console.log(`Server running with SSL on port ${port}`);
+    });
 } else {
-  privateKey = fs.readFileSync('/home/pi/ssl/officialdaniel.com_key.txt');
-  certificate = fs.readFileSync('/home/pi/ssl/officialdaniel.com.crt');
-  bundle = fs.readFileSync('/home/pi/ssl/officialdaniel.com.ca-bundle');
+  app.listen(port, () => {
+    console.log(`Server running without SSL on port ${port}`);
+  });
 }
-
-https
-  .createServer(
-    {
-      key: privateKey,
-      cert: certificate,
-      ca: bundle
-    },
-    app
-  )
-  .listen(port);
 
 const ipInfo = require('ipinfo');
 
 app.use(express.static('home'));
+
+const path = require('path');
+// Serve static files for /.well-known/pki-validation/
+app.use(
+  '/.well-known/pki-validation',
+  express.static(path.join(__dirname, 'public/.well-known/pki-validation'))
+);
 
 // Middleware to log the client IP
 app.use(async (req, res, next) => {

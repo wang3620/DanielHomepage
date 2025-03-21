@@ -18,7 +18,7 @@
   },
   "scripts": {
     "start": "node ./home/OnlineChatroom/chat-server.js & node app.js & node app_redirect.js",
-    "start-local": "ENV=local node ./home/OnlineChatroom/chat-server.js & ENV=local node app.js & node app_redirect.js",
+    "start-local": "ENV=local USE_SSL=false node ./home/OnlineChatroom/chat-server.js & ENV=local node app.js",
     "build": "webpack --env production",
     "build-local": "webpack"
   },
