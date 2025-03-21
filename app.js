@@ -42,6 +42,13 @@ const ipInfo = require('ipinfo');
 
 app.use(express.static('home'));
 
+const path = require('path');
+// Serve static files for /.well-known/pki-validation/
+app.use(
+  '/.well-known/pki-validation',
+  express.static(path.join(__dirname, 'public/.well-known/pki-validation'))
+);
+
 // Middleware to log the client IP
 app.use(async (req, res, next) => {
   let conn;
